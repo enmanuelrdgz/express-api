@@ -17,6 +17,9 @@ app.get('/', (req: Request, res: Response) => {
     //total memory
     const totalMemoryBytes = os.totalmem();
 
+    //cpu
+    const cpus = os.cpus();
+
     // Función para formatear el tiempo en días, horas, minutos y segundos
     function formatUptime(seconds: number): string {
         const days = Math.floor(seconds / (3600 * 24));
@@ -42,9 +45,10 @@ app.get('/', (req: Request, res: Response) => {
 
     const uptime = formatUptime(uptimeSeconds);
     const totalMem = formatMemory(totalMemoryBytes);
+    const cpu = `Modelo del CPU: ${cpus[0].model}`;
 
     // Enviar la hora como respuesta
-    res.json({ hora, uptime, totalMem});
+    res.json({ hora, uptime, totalMem, cpu});
 });
 
 // Iniciar el servidor
